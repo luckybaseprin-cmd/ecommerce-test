@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Wear | Mi Cesta</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo"><a href="index.html">Lucky Wear.</a></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="shop.html">Tienda</a></li>
+            <li><a href="about.html">Nosotros</a></li>
+        </ul>
+        <a href="cart.html" class="cart-icon" id="cart-icon" style="opacity: 1;">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-count">0</span>
+        </a>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header" style="padding: 10rem 5% 2rem; border-bottom: none;">
+        <h1>Cesta de Compra</h1>
+    </section>
+
+    <!-- Cart Dedicated Content -->
+    <div class="dedicated-container">
+        
+        <!-- Empty Message -->
+        <div class="cart-empty-msg" id="cart-empty-msg" style="display: none;">
+            <p style="margin-bottom: 2rem;">Tu cesta está actualmente vacía.</p>
+            <a href="shop.html" class="btn-primary">Continuar Comprando</a>
+        </div>
+
+        <div class="cart-content-grid" id="cart-content">
+            <!-- Left: Items -->
+            <div class="cart-list-wrapper">
+                <div class="cart-header-grid">
+                    <div>Producto</div>
+                    <div class="cart-col-center">Precio</div>
+                    <div class="cart-col-center">Cantidad</div>
+                    <div class="cart-col-right">Total</div>
+                </div>
+                
+                <div id="cart-page-items">
+                    <!-- Javascript injects cart items here -->
+                </div>
+            </div>
+
+            <!-- Right: Summary -->
+            <div class="cart-summary-wrapper">
+                <div class="cart-summary">
+                    <h3>Resumen</h3>
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span id="cart-page-subtotal">0.00€</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Envío</span>
+                        <span>Gratis</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span id="cart-page-total">0.00€</span>
+                    </div>
+                    <a href="checkout.html" class="btn-primary btn-block" style="color:#fff;">Proceder al Pago</a>
+                    <a href="shop.html" class="btn-outline btn-block" style="margin-top: 1rem;">Seguir Comprando</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">Lucky Wear.</div>
+        <div class="footer-links">
+            <a href="shop.html">Tienda</a>
+            <a href="about.html">La Marca</a>
+            <a href="#">Servicio al Cliente</a>
+            <a href="#">Términos y Condiciones</a>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 LuckyBase. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

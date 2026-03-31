@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Wear | Finalizar Pago</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body style="background: var(--bg-surface);">
+
+    <!-- Simple Checkout Header -->
+    <header style="position: relative; padding: 1.5rem 5%; border-bottom: 1px solid var(--border-color); background: var(--bg-surface);">
+        <div class="logo"><a href="index.html">Lucky Wear.</a></div>
+        <a href="cart.html" class="nav-links" style="color:var(--text-secondary); text-decoration:none; font-size:0.85rem;"><i class="fa-solid fa-arrow-left"></i> Volver a la cesta</a>
+    </header>
+
+    <div class="checkout-grid">
+        
+        <!-- Left: Form -->
+        <div class="checkout-left" id="checkout-form-container">
+            <div class="checkout-header">
+                <h2>Pago Seguro</h2>
+                <p>Todas las transacciones están encriptadas. (Lucky Wear Demo)</p>
+            </div>
+
+            <form class="checkout-form" id="checkout-form">
+                
+                <!-- Shipping -->
+                <h4 style="margin-bottom:1rem; font-family:var(--font-sans); font-size:0.9rem; text-transform:uppercase;">Información de Envío</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nombre</label>
+                        <input type="text" placeholder="" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Apellidos</label>
+                        <input type="text" placeholder="" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Dirección Postal Completa</label>
+                    <input type="text" placeholder="" required>
+                </div>
+
+                <!-- Payment Methods -->
+                <h4 style="margin: 3rem 0 1rem; font-family:var(--font-sans); font-size:0.9rem; text-transform:uppercase;">Método de Pago</h4>
+                
+                <div class="payment-methods">
+                    <!-- Method 1: Card -->
+                    <label class="payment-method-label">
+                        <div class="pm-radio-group">
+                            <input type="radio" name="payment_method" value="card" checked>
+                            <span style="font-weight:500;">Tarjeta de Crédito / Débito</span>
+                        </div>
+                        <div class="pm-logos">
+                            <img src="https://cdn.visa.com/v2/assets/images/logos/visa/blue/logo.png" alt="Visa" style="height:10px; object-fit:contain;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" style="height:18px; object-fit:contain; margin-left:8px;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/American_Express_logo_%282018%29.svg" alt="Amex" style="height:18px; object-fit:contain; margin-left:8px;">
+                        </div>
+                    </label>
+
+                    <!-- Hidden Card Details -->
+                    <div id="credit-card-details" class="payment-details-box">
+                        <div class="form-group">
+                            <label>Titular de la tarjeta</label>
+                            <input type="text" id="card-owner" placeholder="" required>
+                        </div>
+                        <div class="form-group" style="position:relative;">
+                            <label>Número de Tarjeta</label>
+                            <input type="text" id="card-number" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                            <i class="fa-regular fa-credit-card" style="position:absolute; right:15px; top:36px; color:#aaa;"></i>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Caducidad (MM/AA)</label>
+                                <input type="text" id="card-exp" placeholder="12/26" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label>CVC</label>
+                                <input type="text" id="card-cvc" placeholder="123" maxlength="3" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Method 2: PayPal -->
+                    <label class="payment-method-label">
+                        <div class="pm-radio-group">
+                            <input type="radio" name="payment_method" value="paypal">
+                            <span style="font-weight:500;">PayPal</span>
+                        </div>
+                        <div class="pm-logos">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" style="height:20px; object-fit:contain;">
+                        </div>
+                    </label>
+
+                    <!-- Hidden PayPal Details -->
+                    <div id="paypal-details" class="payment-details-box" style="display:none; flex-direction:column; align-items:center; text-align:center; padding: 2rem;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal Oficial" style="height:30px; margin-bottom:1.5rem;">
+                        <p style="color:var(--text-secondary); font-size: 0.9rem;">Al confirmar, serás redirigido a la pasarela segura de PayPal para autorizar el cargo en tu cuenta o tarjeta asociada.</p>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="pay-btn" id="pay-btn">
+                    <span id="pay-btn-text">Completar Pedido Seguro</span>
+                    <div class="loader" id="pay-loader"></div>
+                </button>
+                
+                <button type="button" id="paypal-submit-btn" style="display:none; width:100%; padding:0.8rem; background:#FFC439; border:none; border-radius:4px; cursor:pointer; align-items:center; justify-content:center; margin-top:2rem;">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" style="height: 24px;">
+                </button>
+            </form>
+        </div>
+
+        <!-- Success Wrap (Hidden by Default) -->
+        <div class="checkout-left checkout-success-wrap" id="checkout-success-wrap">
+            <i class="fa-solid fa-circle-check"></i>
+            <h2>Pago Confirmado</h2>
+            <p>Gracias por tu pedido en Lucky Wear. Te hemos enviado un email con los detalles de tu compra y número de seguimiento.</p>
+            <a href="index.html" class="btn-outline">Volver a Inicio</a>
+        </div>
+
+        <!-- Right: Summary -->
+        <div class="checkout-right">
+            <div id="checkout-summary-items">
+                <!-- Javascript injects checkout items here -->
+            </div>
+
+            <div class="checkout-totals">
+                <div class="total-line">
+                    <span>Subtotal</span>
+                    <span id="checkout-subtotal">0.00€</span>
+                </div>
+                <div class="total-line">
+                    <span>Envío</span>
+                    <span>Gratis (Promoción)</span>
+                </div>
+                <div class="total-final">
+                    <span>Total Ficticio</span>
+                    <span id="checkout-total">0.00€</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
