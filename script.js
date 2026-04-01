@@ -101,6 +101,10 @@ const init = () => {
             else header.classList.remove('scrolled');
         });
     }
+
+    if (typeof initTour === 'function') {
+        initTour();
+    }
 };
 
 // Render Products (Index & Shop)
@@ -398,6 +402,84 @@ const showToast = (message) => {
         toast.style.transition = 'all 0.4s ease';
         setTimeout(() => toast.remove(), 400);
     }, 3000);
+};
+
+// Driver.js Tour Logic
+const initTour = () => {
+    console.log("initTour called");
+    const isHomePage = document.querySelector('.hero-content') !== null;
+    if (!isHomePage) {
+        console.log("Not home page, aborting tour");
+        return;
+    }
+
+    console.log("window.driver:", window.driver);
+
+    if (window.driver) {
+        console.log("Initializing driver...");
+        const driverObj = window.driver.js.driver({
+            showProgress: true,
+            animate: true,
+            doneBtnText: 'Empezar',
+            nextBtnText: 'Siguiente',
+            prevBtnText: 'Anterior',
+            popoverClass: 'driverjs-theme',
+            steps: [
+                {
+                    popover: {
+                        title: 'Bienvenido al E-commerce LuckyBase',
+                        description: 'Descubre en este tour interactivo en tu propia demo web el aspecto premium y funcionalidades de vanguardia que tendrá tu futura tienda online.',
+                        side: 'center',
+                        align: 'center'
+                    }
+                },
+                {
+                    element: '#header',
+                    popover: {
+                        title: 'Navegación Intuitiva',
+                        description: 'Un menú "sticky" premium y minimalista que asegura que tus clientes nunca se pierdan mientras navegan, sin importar cuánto bajen.',
+                        side: 'bottom',
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '.hero-content h1',
+                    popover: {
+                        title: 'Hero de Alto Impacto',
+                        description: 'Aplica el "Lujo Minimalista". Imágenes a pantalla completa y tipografías elegantes para transmitir una calidad superior y convencer a simple vista.',
+                        side: 'bottom',
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '#tour-shop-link',
+                    popover: {
+                        title: 'Catálogo de Productos Ágil',
+                        description: 'Rutas dinámicas ultra-rápidas donde tus clientes verán todos tus artículos. Optimizado especialmente para compras impulsivas.',
+                        side: 'bottom',
+                        align: 'start'
+                    }
+                },
+                {
+                    element: '#cart-icon',
+                    popover: {
+                        title: 'Gestor de Carrito Inteligente',
+                        description: 'Recuento en tiempo real. Un checkout transparente y sin recargas para maximizar la tasa de conversión en tu negocio.',
+                        side: 'bottom',
+                        align: 'start'
+                    }
+                }
+            ],
+            onDestroyStarted: () => {
+                sessionStorage.setItem('tourCompleted', 'true');
+                driverObj.destroy();
+            }
+        });
+
+        setTimeout(() => {
+            driverObj.drive();
+        }, 500); // Wait for the page load animations
+    }
 };
 
 init();
