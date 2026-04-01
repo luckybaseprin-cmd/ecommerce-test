@@ -417,68 +417,76 @@ const initTour = () => {
 
     if (window.driver) {
         console.log("Initializing driver...");
-        const driverObj = window.driver.js.driver({
-            showProgress: true,
-            animate: true,
-            doneBtnText: 'Empezar',
-            nextBtnText: 'Siguiente',
-            prevBtnText: 'Anterior',
-            popoverClass: 'driverjs-theme',
-            steps: [
-                {
-                    popover: {
-                        title: 'Bienvenido al E-commerce LuckyBase',
-                        description: 'Descubre en este tour interactivo en tu propia demo web el aspecto premium y funcionalidades de vanguardia que tendrá tu futura tienda online.',
-                        side: 'center',
-                        align: 'center'
+        try {
+            const driverObj = window.driver.js.driver({
+                showProgress: true,
+                animate: true,
+                doneBtnText: 'Empezar',
+                nextBtnText: 'Siguiente',
+                prevBtnText: 'Anterior',
+                popoverClass: 'driverjs-theme',
+                steps: [
+                    {
+                        popover: {
+                            title: 'Bienvenido al E-commerce LuckyBase',
+                            description: 'Descubre en este tour interactivo en tu propia demo web el aspecto premium y funcionalidades de vanguardia que tendrá tu futura tienda online.',
+                            side: 'center',
+                            align: 'center'
+                        }
+                    },
+                    {
+                        element: '#header',
+                        popover: {
+                            title: 'Navegación Intuitiva',
+                            description: 'Un menú "sticky" premium y minimalista que asegura que tus clientes nunca se pierdan mientras navegan, sin importar cuánto bajen.',
+                            side: 'bottom',
+                            align: 'start'
+                        }
+                    },
+                    {
+                        element: '.hero-content h1',
+                        popover: {
+                            title: 'Hero de Alto Impacto',
+                            description: 'Aplica el "Lujo Minimalista". Imágenes a pantalla completa y tipografías elegantes para transmitir una calidad superior y convencer a simple vista.',
+                            side: 'bottom',
+                            align: 'start'
+                        }
+                    },
+                    {
+                        element: '#tour-shop-link',
+                        popover: {
+                            title: 'Catálogo de Productos Ágil',
+                            description: 'Rutas dinámicas ultra-rápidas donde tus clientes verán todos tus artículos. Optimizado especialmente para compras impulsivas.',
+                            side: 'bottom',
+                            align: 'start'
+                        }
+                    },
+                    {
+                        element: '#cart-icon',
+                        popover: {
+                            title: 'Gestor de Carrito Inteligente',
+                            description: 'Recuento en tiempo real. Un checkout transparente y sin recargas para maximizar la tasa de conversión en tu negocio.',
+                            side: 'bottom',
+                            align: 'start'
+                        }
                     }
-                },
-                {
-                    element: '#header',
-                    popover: {
-                        title: 'Navegación Intuitiva',
-                        description: 'Un menú "sticky" premium y minimalista que asegura que tus clientes nunca se pierdan mientras navegan, sin importar cuánto bajen.',
-                        side: 'bottom',
-                        align: 'start'
-                    }
-                },
-                {
-                    element: '.hero-content h1',
-                    popover: {
-                        title: 'Hero de Alto Impacto',
-                        description: 'Aplica el "Lujo Minimalista". Imágenes a pantalla completa y tipografías elegantes para transmitir una calidad superior y convencer a simple vista.',
-                        side: 'bottom',
-                        align: 'start'
-                    }
-                },
-                {
-                    element: '#tour-shop-link',
-                    popover: {
-                        title: 'Catálogo de Productos Ágil',
-                        description: 'Rutas dinámicas ultra-rápidas donde tus clientes verán todos tus artículos. Optimizado especialmente para compras impulsivas.',
-                        side: 'bottom',
-                        align: 'start'
-                    }
-                },
-                {
-                    element: '#cart-icon',
-                    popover: {
-                        title: 'Gestor de Carrito Inteligente',
-                        description: 'Recuento en tiempo real. Un checkout transparente y sin recargas para maximizar la tasa de conversión en tu negocio.',
-                        side: 'bottom',
-                        align: 'start'
-                    }
+                ],
+                onDestroyStarted: () => {
+                    sessionStorage.setItem('tourCompleted', 'true');
+                    driverObj.destroy();
                 }
-            ],
-            onDestroyStarted: () => {
-                sessionStorage.setItem('tourCompleted', 'true');
-                driverObj.destroy();
-            }
-        });
+            });
 
-        setTimeout(() => {
-            driverObj.drive();
-        }, 500); // Wait for the page load animations
+            setTimeout(() => {
+                driverObj.drive();
+            }, 500); // Wait for the page load animations
+        } catch (e) {
+            console.error("Tour error: ", e);
+            alert("Hubo un error al iniciar el tour: " + e.message);
+        }
+    } else {
+        console.error("Driver.js no se cargó");
+        alert("La librería Driver.js no fue cargada correctamente");
     }
 };
 
